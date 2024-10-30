@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trademark Application - Trademark Saviour</title>
+    <link rel="icon" href="images/logo11.png" type="image/png">
+
+    <style>
+        /* Global Reset and Basic Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 0 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #003366;
+            font-size: 1.3em;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #00bfff;
+        }
+
+        .nav-links a.active {
+            color: #00bfff;
+            font-weight: bold;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 35px;
+            height: 4px;
+            background-color: #003366;
+            margin: 5px;
+        }
+
+        /* Mobile responsiveness */
+        @media screen and (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transform: translateY(-100%);
+                z-index: 999;
+                width: 100%;
+            }
+
+            .nav-links.active {
+                display: flex;
+                transform: translateY(0);
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 87vh;
+            padding: 0 40px;
+            background-size: cover;
+            background-position: center;
+            margin-top: 80px;
+            background-image: url('images/payment.png');
+        }
+
+        .hero-parallelogram {
+            background-color: #003366;
+            color: white;
+            padding: 30px;
+            transform: skew(-20deg);
+            position: relative;
+            height: 82vh;
+            max-width: 580px;
+            flex: 1;
+            box-shadow: 0 0 20px rgba(0, 128, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .hero-parallelogram:hover {
+            box-shadow: 0 0 30px rgba(0, 128, 255, 0.7);
+        }
+
+        .hero-parallelogram .content {
+            transform: skew(20deg);
+            opacity: 0;
+            transform: translateY(100px);
+            transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+            padding-top: 20px;
+        }
+
+        .hero-parallelogram .content.show-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-parallelogram h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #00bfff;
+            margin-bottom: 15px;
+        }
+
+        .hero-parallelogram p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            color: #e0f7fa;
+            line-height: 1.8;
+        }
+
+        .hero-parallelogram button {
+            display: block;
+            margin: 25px auto 0 auto;
+            padding: 10px 25px;
+            font-size: 1.1em;
+            color: white;
+            background-color: #00bfff;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 128, 255, 0.5);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .hero-parallelogram button:hover {
+            background-color: #0080ff;
+            transform: translateY(-3px);
+        }
+
+        /* Application Form Section */
+        .application-form-section {
+            background-image: url("images/white.jpg");
+            padding: 60px 30px;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .application-form {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 128, 255, 0.2);
+            max-width: 600px;
+            width: 100%;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .application-form:hover {
+            box-shadow: 0 8px 20px rgba(0, 128, 255, 0.4);
+            transform: translateY(-5px);
+        }
+
+        .application-form h2 {
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            color: #003366;
+        }
+
+        .application-form label {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .application-form input,
+        .application-form select,
+        .application-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        .application-form input:focus,
+        .application-form select:focus,
+        .application-form textarea:focus {
+            border-color: #00bfff;
+        }
+
+        .application-form button {
+            width: 100%;
+            padding: 15px;
+            background-color: #00bfff;
+            border: none;
+            color: white;
+            font-size: 1.2em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .application-form button:hover {
+            background-color: #0080ff;
+        }
+
+        /* Footer Section */
+        .footer {
+            background-color: #003366;
+            color: white;
+            padding: 40px 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo img {
+            height: 70px;
+            width: auto;
+        }
+
+        .footer-info, .footer-links, .footer-contact {
+            flex: 1;
+            min-width: 200px;
+            margin: 10px;
+            text-align: left;
+        }
+
+        .footer-info h2 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin: 5px 0;
+        }
+
+        .footer-links a {
+            color: #00bfff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="Trademark Savior Logo">
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="app.html">Trademark Application</a></li>
+        </ul>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-parallelogram">
+            <div class="content">
+                <h1>Submit Your Trademark Application</h1>
+                <p>Fill out the form below to submit your trademark application. Your brand protection is just a step away!</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="application-form-section" id="application-section">
+        <div class="application-form">
+            <h2>Trademark Application Form</h2>
+            <form id="application-form" method="post" action="send_email(2).php" name="applicationForm">
+                <!-- Applicant Name / Business Name -->
+                <label for="applicant-name">Applicant Name / Business Name:</label>
+                <input type="text" id="applicant-name" name="applicant-name" placeholder="John Doe / ABC Corp." required>
+
+                <!-- Entity Type -->
+                <label for="entity-type">Entity Type:</label>
+                <select id="entity-type" name="entity-type" required>
+                    <option value="Individual">Individual</option>
+                    <option value="Corporation">Corporation</option>
+                    <option value="LLC">LLC</option>
+                    <option value="Partnership">Partnership</option>
+                    <option value="Trust">Trust</option>
+                </select>
+
+                <!-- Country -->
+                <label for="country">Country:</label>
+                <select id="country" name="country" required>
+                    <option value="">Select Country</option>
+                    <option value="Afghanistan">Afghanistan</option>
+                    <option value="Albania">Albania</option>
+                    <option value="Algeria">Algeria</option>
+                    <option value="Andorra">Andorra</option>
+                    <option value="Angola">Angola</option>
+                    <option value="Argentina">Argentina</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Austria">Austria</option>
+                    <option value="Bangladesh">Bangladesh</option>
+                    <option value="Belgium">Belgium</option>
+                    <option value="Brazil">Brazil</option>
+                    <option value="Bulgaria">Bulgaria</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Chile">Chile</option>
+                    <option value="China">China</option>
+                    <option value="Colombia">Colombia</option>
+                    <option value="Cuba">Cuba</option>
+                    <option value="Czech Republic">Czech Republic</option>
+                    <option value="Denmark">Denmark</option>
+                    <option value="Egypt">Egypt</option>
+                    <option value="Finland">Finland</option>
+                    <option value="France">France</option>
+                    <option value="Germany">Germany</option>
+                    <option value="Greece">Greece</option>
+                    <option value="Hong Kong">Hong Kong</option>
+                    <option value="Hungary">Hungary</option>
+                    <option value="India">India</option>
+                    <option value="Indonesia">Indonesia</option>
+                    <option value="Iran">Iran</option>
+                    <option value="Iraq">Iraq</option>
+                    <option value="Ireland">Ireland</option>
+                    <option value="Israel">Israel</option>
+                    <option value="Italy">Italy</option>
+                    <option value="Japan">Japan</option>
+                    <option value="Kenya">Kenya</option>
+                    <option value="Malaysia">Malaysia</option>
+                    <option value="Mexico">Mexico</option>
+                    <option value="Netherlands">Netherlands</option>
+                    <option value="New Zealand">New Zealand</option>
+                    <option value="Nigeria">Nigeria</option>
+                    <option value="Norway">Norway</option>
+                    <option value="Pakistan">Pakistan</option>
+                    <option value="Philippines">Philippines</option>
+                    <option value="Poland">Poland</option>
+                    <option value="Portugal">Portugal</option>
+                    <option value="Qatar">Qatar</option>
+                    <option value="Romania">Romania</option>
+                    <option value="Russia">Russia</option>
+                    <option value="Saudi Arabia">Saudi Arabia</option>
+                    <option value="Singapore">Singapore</option>
+                    <option value="South Africa">South Africa</option>
+                    <option value="South Korea">South Korea</option>
+                    <option value="Spain">Spain</option>
+                    <option value="Sri Lanka">Sri Lanka</option>
+                    <option value="Sweden">Sweden</option>
+                    <option value="Switzerland">Switzerland</option>
+                    <option value="Thailand">Thailand</option>
+                    <option value="Turkey">Turkey</option>
+                    <option value="Ukraine">Ukraine</option>
+                    <option value="United Arab Emirates">United Arab Emirates</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="United States">United States</option>
+                    <option value="Vietnam">Vietnam</option>
+                    <option value="Zimbabwe">Zimbabwe</option>
+                    <!-- Add more countries as needed -->
+                </select>
+
+                <!-- Mailing Address -->
+                <label for="mailing-address">Mailing Address:</label>
+                <input type="text" id="mailing-address" name="mailing-address" placeholder="1234 Main St" required>
+
+                <!-- City -->
+                <label for="city">City:</label>
+                <select id="city" name="city" required>
+                    <option value="">Select City</option>
+                    <!-- Cities will be populated here based on selected country -->
+                </select>
+
+                <!-- State -->
+                <label for="state">State:</label>
+                <input type="text" id="state" name="state" placeholder="State" required>
+
+                <!-- Zip Code -->
+                <label for="zip-code">Zip Code:</label>
+                <input type="text" id="zip-code" name="zip-code" placeholder="Zip Code" required pattern="\d{5}" title="Please enter a valid 5-digit zip code">
+
+                <!-- Email Address -->
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" placeholder="example@example.com" required>
+
+                <!-- Phone Number (optional) -->
+                <label for="phone">Phone Number (optional):</label>
+                <input type="tel" id="phone" name="phone" placeholder="(555) 555-5555">
+
+                <!-- Colors Claimed (if applicable) -->
+                <label for="colors-claimed">Colors Claimed (if applicable):</label>
+                <input type="text" id="colors-claimed" name="colors-claimed" placeholder="List colors, e.g., red, blue">
+
+                <!-- Specimen URL (if applicable) -->
+                <label for="specimen-url">Specimen URL (if applicable):</label>
+                <input type="url" id="specimen-url" name="specimen-url" placeholder="https://example.com/specimen">
+
+                <!-- Signature -->
+                <label for="signature">Signature:</label>
+                <input type="text" id="signature" name="signature" placeholder="Type your name to digitally sign" required>
+
+                <!-- Submit Button -->
+                <button type="submit">Submit Application</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="images/logo.png" alt="Trademark Savior Logo" />
+            </div>
+            <div class="footer-info">
+                <h2>Trademark Saviour</h2>
+                <p>Trademark Saviour offers a variety of services to help you choose a strong trademark, search for existing trademarks, and register your trademark with the USPTO. Contact us today for a free consultation.</p>
+            </div>
+            
+            <div class="footer-contact">
+                <h3>Quick Info</h3>
+                <p><a href="mailto:Info@tm-saviour.com">Info@tm-saviour.com</a></p>
+                <p>7901 4th St N, St. Petersburg</p>
+                <p>FL 33702, USA</p>
+                <span><a href="tel:+1 206-844-5935">+1 206-844-5935</a></span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Form Submission, Navbar Toggle, and Dynamic Dropdowns -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Handle form submission with AJAX
+            const applicationForm = document.getElementById('application-form');
+            applicationForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent default form submission
+
+                const formData = new FormData(this);
+
+                // Send data via AJAX to the PHP script
+                fetch('send_email(2).php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    // Check if the response is OK
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json(); // Parse JSON response
+                })
+                .then(data => {
+                    // Handle success or error based on the response
+                    if (data.status === 'success') {
+                        alert(data.message);
+                        applicationForm.reset(); // Clear the form after successful submission
+                        // Reset city dropdown
+                        const citySelect = document.getElementById('city');
+                        citySelect.innerHTML = '<option value="">Select City</option>';
+                    } else {
+                        alert(`Error: ${data.message}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error sending your application. Please try again.');
+                });
+            });
+
+            // Menu Toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            const navItems = document.querySelectorAll('.nav-links a');
+
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+
+            // Highlight the current active page in the navigation
+            const currentLocation = window.location.href;
+            navItems.forEach(item => {
+                if (currentLocation.includes(item.getAttribute('href'))) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Close menu when a link is clicked
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                });
+            });
+
+            // Show content when visible in the hero section
+            const options = {
+                threshold: 0.1
+            };
+            const parallelogram = document.querySelector(".hero-parallelogram");
+            const parallelogramContent = document.querySelector(".content");
+
+            if (parallelogram && parallelogramContent) {
+                const parallelogramObserver = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            parallelogramContent.classList.add("show-content");
+                        }
+                    });
+                }, options);
+                parallelogramObserver.observe(parallelogram);
+            }
+
+            // Country to Cities Mapping
+            const countryToCities = {
+                "United States": ["New York", "Los Angeles", "Chicago", "Houston", "Phoenix"],
+                "Canada": ["Toronto", "Vancouver", "Montreal", "Calgary", "Ottawa"],
+                "United Kingdom": ["London", "Manchester", "Birmingham", "Leeds", "Glasgow"],
+                "Australia": ["Sydney", "Melbourne", "Brisbane", "Perth", "Adelaide"],
+                "India": ["Mumbai", "Delhi", "Bangalore", "Hyderabad", "Chennai"],
+                // Add more countries and their cities as needed
+            };
+
+            // Country and City Dropdowns
+            const countrySelect = document.getElementById('country');
+            const citySelect = document.getElementById('city');
+
+            countrySelect.addEventListener('change', function() {
+                const selectedCountry = this.value;
+
+                // Clear previous city options
+                citySelect.innerHTML = '<option value="">Select City</option>';
+
+                if (selectedCountry && countryToCities[selectedCountry]) {
+                    // Populate cities based on selected country
+                    countryToCities[selectedCountry].forEach(city => {
+                        const option = document.createElement('option');
+                        option.value = city;
+                        option.textContent = city;
+                        citySelect.appendChild(option);
+                    });
+
+                    // If you want to make city selection required only when cities are available
+                    citySelect.required = true;
+                } else {
+                    // If no country is selected or no cities are available
+                    citySelect.required = false;
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
